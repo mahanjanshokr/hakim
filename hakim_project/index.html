@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8" />
+  <title>اپلیکیشن حکیم</title>
+</head>
+<body>
+  <h1>ورود شرح حال اولیه</h1>
+  <textarea id="prompt" rows="10" cols="50" placeholder="شرح حال را وارد کنید..."></textarea><br>
+  <button onclick="sendPrompt()">ارسال</button>
+  <p id="response"></p>
+
+  <script>
+    async function sendPrompt() {
+      const prompt = document.getElementById("prompt").value;
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt })
+      });
+      const data = await res.json();
+      document.getElementById("response").textContent = data.message;
+    }
+  </script>
+</body>
+</html>
